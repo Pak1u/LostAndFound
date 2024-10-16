@@ -20,7 +20,7 @@ const itemSchema = mongoose.Schema(
     },
     description:{
         type:String,
-        required: true,
+        required: true, 
     },
     image:{
         type: String,

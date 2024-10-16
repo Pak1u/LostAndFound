@@ -1,4 +1,4 @@
-import express, { request } from "express";
+import express, { request, urlencoded } from "express";
 import { PORT, mongoURL } from "./config.js";
 import mongoose from "mongoose";
 import { Item } from "./models/itemmodel.js";
@@ -8,11 +8,11 @@ const require = createRequire(import.meta.url);//to require require for multer
 
 
 const app = express();
+app.use(urlencoded());
 app.use(express.json());
 app.use(cors());
 app.use('/files',express.static("files"))
 
-//================================================== multer ==============================================
 
 const multer = require("multer");
 
@@ -67,6 +67,7 @@ app.post("/item",upload.single("file"), async (req,res)=>{
       image: req.file.filename,
     };
    const item=await Item.create(newItem);
+  //  console.log(body.req);
    return res.status(200).send(item);
 
   }catch(error){
